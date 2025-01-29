@@ -13,10 +13,9 @@
 "use client"
 
 import styles from './styles.module.css'
+import React, { useState } from 'react';
 import { Separator } from "@/components/ui/separator"
 import { Button } from '@/components/ui/button'
-
-import * as React from "react"
 import {
     Breadcrumb,
     BreadcrumbItem,
@@ -30,9 +29,28 @@ import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/componen
 import { Label } from "@/components/ui/label"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import Link from 'next/link'
-
+import {
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogFooter,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+} from "@/components/ui/dialog"
+import { Input } from "@/components/ui/input"
 
 export default function Orders() {
+    // 新しいコンポーネントを表示するかどうかの状態
+    const [
+        showNewComponent,
+        setShowNewComponent
+    ] = useState(false);
+
+    // ボタンがクリックされたときの処理
+    const handleButtonClick = () => {
+        setShowNewComponent(true);  // ボタンがクリックされたら状態をtrueにする
+    };
     return (
         <>
             <Breadcrumb>
@@ -53,9 +71,47 @@ export default function Orders() {
                 <div className="grid grid-cols-1 gap-2">
                     <div className="flex items-center pl-2">
                         <Plus height={21} width={21} />
-                        <Button about='Add a new adress' aria-label='Add a new adress' variant='link' className="text-lg font-semibold p-0 pl-1">
-                            Add a new adress
-                        </Button>
+                        <Dialog>
+                            <DialogTrigger asChild>
+                                <Button about='Add a new adress' aria-label='Add a new adress' variant='link' className="text-lg font-semibold p-0 pl-1" onClick={handleButtonClick}>
+                                    Add a new adress
+                                </Button>
+                            </DialogTrigger>
+                            <DialogContent className="sm:max-w-[425px]">
+                                <DialogHeader>
+                                    <DialogTitle>Edit profile</DialogTitle>
+                                    <DialogDescription>
+                                        Make changes to your profile here. Click save when you're done.
+                                    </DialogDescription>
+                                </DialogHeader>
+                                <div className="grid gap-4 py-4">
+                                    <div className="grid grid-cols-4 items-center gap-4">
+                                        <Label htmlFor="name" className="text-right">
+                                            Name
+                                        </Label>
+                                        <Input id="name" value="Pedro Duarte" className="col-span-3" />
+                                    </div>
+                                    <div className="grid grid-cols-4 items-center gap-4">
+                                        <Label htmlFor="username" className="text-right">
+                                            Username
+                                        </Label>
+                                        <Input id="username" value="@peduarte" className="col-span-3" />
+                                    </div>
+                                </div>
+                                <DialogFooter>
+                                    <Button type="submit">Save changes</Button>
+                                </DialogFooter>
+                            </DialogContent>
+                        </Dialog>
+
+
+
+
+
+                    </div>
+                    <div>
+                        {/* 新しいコンポーネントの条件付きレンダリング */}
+                        {showNewComponent && <NewComponent />}
                     </div>
                     <RadioGroup defaultValue="option-one">
 
@@ -138,4 +194,8 @@ export default function Orders() {
             </footer>
         </>
     )
+    // 新しいコンポーネント
+    function NewComponent() {
+        return <div>これは新しいaddressです！</div>;
+    }
 }
