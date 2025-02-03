@@ -32,7 +32,6 @@ import Link from 'next/link'
 import {
     Dialog,
     DialogContent,
-    DialogDescription,
     DialogFooter,
     DialogHeader,
     DialogTitle,
@@ -79,39 +78,57 @@ export default function Orders() {
                             </DialogTrigger>
                             <DialogContent className="sm:max-w-[425px]">
                                 <DialogHeader>
-                                    <DialogTitle>Edit profile</DialogTitle>
-                                    <DialogDescription>
-                                        Make changes to your profile here. Click save when you're done.
-                                    </DialogDescription>
+                                    <DialogTitle>Add a new adress</DialogTitle>
                                 </DialogHeader>
                                 <div className="grid gap-4 py-4">
                                     <div className="grid grid-cols-4 items-center gap-4">
-                                        <Label htmlFor="name" className="text-right">
-                                            Name
+                                        <Label htmlFor="country" className="text-right">
+                                            Country/Region
                                         </Label>
-                                        <Input id="name" value="Pedro Duarte" className="col-span-3" />
-                                    </div>
-                                    <div className="grid grid-cols-4 items-center gap-4">
-                                        <Label htmlFor="username" className="text-right">
-                                            Username
+                                        <Input id="country" className="col-span-3" />
+                                        <Label htmlFor="firstname" className="text-right">
+                                            First name
                                         </Label>
-                                        <Input id="username" value="@peduarte" className="col-span-3" />
+                                        <Input id="firstname" className="col-span-3" />
+                                        <Label htmlFor="lastname" className="text-right">
+                                            Last name
+                                        </Label>
+                                        <Input id="lastname" className="col-span-3" />
+                                        <Label htmlFor="phone#" className="text-right">
+                                            Phone #
+                                        </Label>
+                                        <Input id="phone#" className="col-span-3" />
+                                        <Label htmlFor="adress1" className="text-right">
+                                            Adress line 1
+                                        </Label>
+                                        <Input id="adress1" className="col-span-3" />
+                                        <Label htmlFor="adress2" className="text-right">
+                                            Adress line 2
+                                        </Label>
+                                        <Input id="adress2" className="col-span-3" />
+                                        <Label htmlFor="city" className="text-right">
+                                            City
+                                        </Label>
+                                        <Input id="city" className="col-span-3" />
+                                        <Label htmlFor="state" className="text-right">
+                                            State
+                                        </Label>
+                                        <Input id="state" className="col-span-3" />
+                                        <Label htmlFor="zipcode" className="text-right">
+                                            Zip Code
+                                        </Label>
+                                        <Input id="zipcode" className="col-span-3" />
                                     </div>
                                 </div>
                                 <DialogFooter>
-                                    <Button type="submit">Save changes</Button>
+                                    <Button type="submit">Add adress</Button>
                                 </DialogFooter>
                             </DialogContent>
                         </Dialog>
-
-
-
-
-
                     </div>
                     <div>
                         {/* 新しいコンポーネントの条件付きレンダリング */}
-                        {showNewComponent && <NewComponent />}
+                         {showNewComponent && <AddAdress />}
                     </div>
                     <RadioGroup defaultValue="option-one">
 
@@ -131,7 +148,7 @@ export default function Orders() {
                                 </div>
                                 <div className="flex items-top">
                                     <MapPin height={23} width={23} />
-                                    2222 W Beardsley Rd #2047,
+                                    1111 W Beardsley Rd #2050,
                                     Phoenix, AZ 85027, United States
                                 </div>
                             </CardContent>
@@ -163,7 +180,7 @@ export default function Orders() {
                                 </div>
                                 <div className="flex items-top">
                                     <MapPin height={26} width={26} />
-                                    1100 Indian Trail Lilburn Rd Apt 1414,
+                                    1270 Indian Trail Lilburn Rd Apt 1653,
                                     Norcross, GA 30093, United States
                                 </div>
                             </CardContent>
@@ -195,7 +212,7 @@ export default function Orders() {
         </>
     )
     // 新しいコンポーネント
-    function NewComponent() {
+    function AddAdress() {
         return <div>これは新しいaddressです！</div>;
     }
 }
