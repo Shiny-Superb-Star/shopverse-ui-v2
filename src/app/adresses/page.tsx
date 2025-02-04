@@ -42,7 +42,7 @@ import { Input } from "@/components/ui/input"
 export default function Orders() {
     // 新しいコンポーネントを表示するかどうかの状態
     const [
-        showNewComponent,
+        showNewAdress,
         setShowNewComponent
     ] = useState(false);
 
@@ -72,7 +72,7 @@ export default function Orders() {
                         <Plus height={21} width={21} />
                         <Dialog>
                             <DialogTrigger asChild>
-                                <Button about='Add a new adress' aria-label='Add a new adress' variant='link' className="text-lg font-semibold p-0 pl-1" onClick={handleButtonClick}>
+                                <Button about='Add a new adress' aria-label='Add a new adress' variant='link' className="text-lg font-semibold p-0 pl-1">
                                     Add a new adress
                                 </Button>
                             </DialogTrigger>
@@ -121,17 +121,16 @@ export default function Orders() {
                                     </div>
                                 </div>
                                 <DialogFooter>
-                                    <Button type="submit">Add adress</Button>
+                                    <Button type="submit" onClick={handleButtonClick}>Add adress</Button>
                                 </DialogFooter>
                             </DialogContent>
                         </Dialog>
                     </div>
                     <div>
                         {/* 新しいコンポーネントの条件付きレンダリング */}
-                         {showNewComponent && <AddAdress />}
+                        {showNewAdress && <AddAdress />}
                     </div>
                     <RadioGroup defaultValue="option-one">
-
                         <Card className="w-[400px] h-[200px]">
                             <CardHeader>
                                 <div className="flex items-center space-x-2">
@@ -199,20 +198,46 @@ export default function Orders() {
                     </RadioGroup>
                 </div>
             </div>
-            <footer className="text-center py-4 mt-auto">
-                <div className="border-t border-gray-300 my-4"></div>
-                <div className="flex gap-4 justify-center">
-                    <Link className={styles.footermenu} href="/privacy&terms">Privacy & Terms</Link>
-                    <Link className={styles.footermenu} href="/contactUs">Contact Us</Link>
-                    <Link className={styles.footermenu} href="/changeRegion">Consumer health</Link>
-                    <Link className={styles.footermenu} href="/changeRegion">Your Privacy Choices</Link>
-                </div>
-                <p>&copy; 2024 SSS Corp. All rights reserved.</p>
-            </footer>
         </>
     )
     // 新しいコンポーネント
     function AddAdress() {
-        return <div>これは新しいaddressです！</div>;
+        return <div>
+            <RadioGroup defaultValue="option-three">
+                <Card className="w-[400px] h-[200px]">
+                    <CardHeader>
+                        <div className="flex items-center space-x-2">
+                            <CardTitle>Saori Shigehisa</CardTitle>
+                            <div className="flex items-center space-x-1">
+                                <RadioGroupItem value="option-one" id="option-one" />
+                                <Label htmlFor="option-one">Default</Label>
+                            </div>
+                        </div>
+                    </CardHeader>
+                    <CardContent>
+                        <div className="flex items-center">
+                            <Phone height={17} width={17} /> +1(323) 561-8907
+                        </div>
+                        <div className="flex items-top">
+                            <MapPin height={23} width={23} />
+                            1117 W Beardsley Rd #2070,
+                            Phoenix, AZ 85027, United States
+                        </div>
+                    </CardContent>
+                    <CardFooter>
+                        <div className="flex h-3 items-center space-x-1 text-sm">
+                            <Button about='Edit' aria-label='Edit' variant='link'>
+                                Edit
+                            </Button>
+                            <Separator orientation="vertical" />
+                            <Button about='Edit' aria-label='Edit' variant='link'>
+                                Remove
+                            </Button>
+                        </div>
+                    </CardFooter>
+                </Card>
+            </RadioGroup>
+        </div>
+            ;
     }
 }
