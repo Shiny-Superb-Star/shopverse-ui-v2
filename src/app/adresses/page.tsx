@@ -28,7 +28,6 @@ import { MapPin, Phone, Plus } from "lucide-react"
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Label } from "@/components/ui/label"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
-import Link from 'next/link'
 import {
     Dialog,
     DialogContent,
@@ -38,6 +37,17 @@ import {
     DialogTrigger,
 } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
+import {
+    AlertDialog,
+    AlertDialogAction,
+    AlertDialogCancel,
+    AlertDialogContent,
+    AlertDialogDescription,
+    AlertDialogFooter,
+    AlertDialogHeader,
+    AlertDialogTitle,
+    AlertDialogTrigger,
+} from "@/components/ui/alert-dialog"
 
 export default function Orders() {
     // 新しいコンポーネントを表示するかどうかの状態
@@ -148,7 +158,7 @@ export default function Orders() {
                                 <div className="flex items-top">
                                     <MapPin height={23} width={23} />
                                     1111 W Beardsley Rd #2050,
-                                    Phoenix, AZ 85027, United States
+                                    Phoenix, AZ 85327, United States
                                 </div>
                             </CardContent>
                             <CardFooter>
@@ -157,9 +167,26 @@ export default function Orders() {
                                         Edit
                                     </Button>
                                     <Separator orientation="vertical" />
-                                    <Button about='Edit' aria-label='Edit' variant='link'>
-                                        Remove
-                                    </Button>
+                                    <AlertDialog>
+                                        <AlertDialogTrigger asChild>
+                                            <Button about='Edit' aria-label='Edit' variant='link'>
+                                                Remove
+                                            </Button>
+                                        </AlertDialogTrigger>
+                                        <AlertDialogContent>
+                                            <AlertDialogHeader>
+                                                <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                                                <AlertDialogDescription>
+                                                    This action cannot be undone. This will permanently delete your address
+                                                    and remove your data from our servers.
+                                                </AlertDialogDescription>
+                                            </AlertDialogHeader>
+                                            <AlertDialogFooter>
+                                                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                                <AlertDialogAction>Continue</AlertDialogAction>
+                                            </AlertDialogFooter>
+                                        </AlertDialogContent>
+                                    </AlertDialog>
                                 </div>
                             </CardFooter>
                         </Card>
@@ -189,9 +216,26 @@ export default function Orders() {
                                         Edit
                                     </Button>
                                     <Separator orientation="vertical" />
-                                    <Button about='Edit' aria-label='Edit' variant='link'>
-                                        Remove
-                                    </Button>
+                                    <AlertDialog>
+                                        <AlertDialogTrigger asChild>
+                                            <Button about='Edit' aria-label='Edit' variant='link'>
+                                                Remove
+                                            </Button>
+                                        </AlertDialogTrigger>
+                                        <AlertDialogContent>
+                                            <AlertDialogHeader>
+                                                <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                                                <AlertDialogDescription>
+                                                    This action cannot be undone. This will permanently delete your address
+                                                    and remove your data from our servers.
+                                                </AlertDialogDescription>
+                                            </AlertDialogHeader>
+                                            <AlertDialogFooter>
+                                                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                                <AlertDialogAction>Continue</AlertDialogAction>
+                                            </AlertDialogFooter>
+                                        </AlertDialogContent>
+                                    </AlertDialog>
                                 </div>
                             </CardFooter>
                         </Card>
