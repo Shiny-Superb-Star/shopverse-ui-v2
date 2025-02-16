@@ -59,14 +59,66 @@ export default function Addresses() {
     // ボタンがクリックされたときの処理
     const handleButtonClick = () => {
         // ボタンがクリックされたら状態をtrueにする
-        setShowNewComponent(true);  
+        setShowNewComponent(true);
     };
 
     const [cards, setCards] = useState([
         { defaultValue: "option-one", id: "card-1", name: "Saori Shigehisa", phone: "123-456-7890", address: "1234 Maple St, Los Angeles, CA 90015" },
         { defaultValue: "option-two", id: "card-2", name: "Steven Sisjayawan", phone: "234-567-8901", address: "5678 Elm Ave, Austin, TX 73301" },
-        { defaultValue: "option-three", id: "card-3", name: "Satoru Nakajima", phone: "345-678-9012", address: "9101 Oak Blvd, Miami, FL 33101"},
+        { defaultValue: "option-three", id: "card-3", name: "Satoru Nakajima", phone: "345-678-9012", address: "9101 Oak Blvd, Miami, FL 33101" },
     ]);
+
+    const addressList = cards.map((card) => (
+        <RadioGroup key={card.id} defaultValue="option-one">
+            <Card className="w-[400px] h-[200px]">
+                <CardHeader>
+                    <div className="flex items-center space-x-2">
+                        <CardTitle>{card.name}</CardTitle>
+                        <div className="flex items-center space-x-1">
+                            <RadioGroupItem value={card.defaultValue} id={card.defaultValue} />
+                            <Label htmlFor={card.defaultValue}>Default</Label>
+                        </div>
+                    </div>
+                </CardHeader>
+                <CardContent>
+                    <div className="flex items-center">
+                        <Phone height={17} width={17} /> {card.phone}
+                    </div>
+                    <div className="flex items-top">
+                        <MapPin height={23} width={23} /> {card.address}
+                    </div>
+                </CardContent>
+                <CardFooter>
+                    <div className="flex h-3 items-center space-x-1 text-sm">
+                        <Button about='Edit' aria-label='Edit' variant='link'>
+                            Edit
+                        </Button>
+                        <Separator orientation="vertical" />
+                        <AlertDialog>
+                            <AlertDialogTrigger asChild>
+                                <Button about='Edit' aria-label='Edit' variant='link'>
+                                    Remove
+                                </Button>
+                            </AlertDialogTrigger>
+                            <AlertDialogContent>
+                                <AlertDialogHeader>
+                                    <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                                    <AlertDialogDescription>
+                                        This action cannot be undone. This will permanently delete your address
+                                        and remove your data from our servers.
+                                    </AlertDialogDescription>
+                                </AlertDialogHeader>
+                                <AlertDialogFooter>
+                                    <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                    <AlertDialogAction onClick={() => removeCard(card.id)} about="Remove" aria-label="Remove">Continue</AlertDialogAction>
+                                </AlertDialogFooter>
+                            </AlertDialogContent>
+                        </AlertDialog>
+                    </div>
+                </CardFooter>
+            </Card>
+        </RadioGroup>
+    ));
 
     // 削除処理（クリックされたカードをリストから削除）
     const removeCard = (id: string) => {
@@ -153,58 +205,7 @@ export default function Addresses() {
                         {/* 新しいコンポーネントの条件付きレンダリング */}
                         {showNewAddress && <AddAdress />}
                     </div>
-
-                    {cards.map((card) => (
-                        <RadioGroup defaultValue="option-one">
-                        <Card key={card.id} className="w-[400px] h-[200px]">
-                                <CardHeader>
-                                    <div className="flex items-center space-x-2">
-                                        <CardTitle>{card.name}</CardTitle>
-                                        <div className="flex items-center space-x-1">
-                                            <RadioGroupItem value={card.defaultValue} id={card.defaultValue} />
-                                            <Label htmlFor={card.defaultValue}>Default</Label>
-                                            </div>
-                                    </div>
-                                </CardHeader>
-                                <CardContent>
-                                    <div className="flex items-center">
-                                        <Phone height={17} width={17} /> {card.phone}
-                                    </div>
-                                    <div className="flex items-top">
-                                        <MapPin height={23} width={23} /> {card.address}
-                                    </div>
-                                </CardContent>
-                                <CardFooter>
-                                    <div className="flex h-3 items-center space-x-1 text-sm">
-                                        <Button about='Edit' aria-label='Edit' variant='link'>
-                                            Edit
-                                        </Button>
-                                        <Separator orientation="vertical" />
-                                        <AlertDialog>
-                                            <AlertDialogTrigger asChild>
-                                                <Button about='Edit' aria-label='Edit' variant='link'>
-                                                    Remove
-                                                </Button>
-                                            </AlertDialogTrigger>
-                                            <AlertDialogContent>
-                                                <AlertDialogHeader>
-                                                    <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-                                                    <AlertDialogDescription>
-                                                        This action cannot be undone. This will permanently delete your address
-                                                        and remove your data from our servers.
-                                                    </AlertDialogDescription>
-                                                </AlertDialogHeader>
-                                                <AlertDialogFooter>
-                                                    <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                                    <AlertDialogAction onClick={() => removeCard(card.id)} about="Remove" aria-label="Remove">Continue</AlertDialogAction>
-                                                </AlertDialogFooter>
-                                            </AlertDialogContent>
-                                        </AlertDialog>
-                                    </div>
-                                </CardFooter>
-                            </Card>
-                        </RadioGroup>
-                    ))}
+                    {addressList}
                 </div>
             </div>
         </>
