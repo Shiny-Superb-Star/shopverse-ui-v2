@@ -46,7 +46,7 @@ import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Separator } from "@/components/ui/separator";
 import { MapPin, Phone, Plus } from "lucide-react";
-import { useState } from 'react';
+import React, { useState, useEffect } from "react";
 import AddAdress from "../components/feature/addAddress/page";
 import styles from './styles.module.css';
 
@@ -63,21 +63,73 @@ export default function Addresses() {
         setShowNewComponent(true);
     };
 
-    const [cards, setCards] = useState([
+    type Card = {
+        value: string;
+        id: string;
+        name: string;
+        phone: string;
+        address: string;
+    };
+
+    const initialCards: Card[] = [
         { value: "option-one", id: "card-1", name: "Saori Shigehisa", phone: "123-456-7890", address: "1234 Maple St, Los Angeles, CA 90015, United States" },
         { value: "option-two", id: "card-2", name: "Steven Sisjayawan", phone: "234-567-8901", address: "5678 Elm Ave, Austin, TX 73301, United States" },
-        { value: "option-three", id: "card-3", name: "Satoru Nakajima", phone: "345-678-9012", address: "9101 Oak Blvd, Miami, FL 33101" },
-    ]);
+        { value: "option-three", id: "card-3", name: "Eric Zhang", phone: "345-678-9012", address: "9101 Oak Blvd, Miami, FL 33101" },
+    ];
 
-    const [selectedOption, setSelectedOption] = useState("option-one");
+    const [cards, setCards] = useState<Card[]>(initialCards);
+    // 初期選択は最初のカード
+    const [selectedCardId, setSelectedCardId] = useState<string>(initialCards[0].id);
 
-    const addressList = cards.map((card) => (
+    // クライアントサイドで localStorage のデータを読み込み
+    useEffect(() => {
+        if (typeof window !== "undefined") {
+            const savedCards = localStorage.getItem("cards");
+            if (savedCards) {
+                const parsedCards = JSON.parse(savedCards);
+                if (parsedCards.length === initialCards.length) {
+                    setCards(parsedCards);
+                } else {
+                    localStorage.setItem("cards", JSON.stringify(initialCards));
+                    setCards(initialCards);
+                }
+            } else {
+                localStorage.setItem("cards", JSON.stringify(initialCards));
+            }
+        }
+    }, []);
+
+    // カード変更時に localStorage を更新
+    useEffect(() => {
+        if (typeof window !== "undefined") {
+            localStorage.setItem("cards", JSON.stringify(cards));
+        }
+    }, [cards]);
+
+    // ラジオボタンが変更されたときの処理
+    const handleRadioChange = (selectedCard: Card) => {
+        const newCards = [
+            selectedCard,
+            ...cards.filter((card) => card.id !== selectedCard.id),
+        ];
+        setCards(newCards);
+        setSelectedCardId(selectedCard.id);
+        window.location.reload();
+    };
+
+    const addressList = cards.map((card, index) => (
         <Card key={card.id} className="w-[400px] h-[200px]">
             <CardHeader>
                 <div className="flex items-center space-x-2">
                     <CardTitle>{card.name}</CardTitle>
                     <div className="flex items-center space-x-1">
-                        <RadioGroupItem value={card.value} id={card.value} />
+                        <RadioGroupItem
+                            value={card.id}
+                            id={card.id}
+                            className="h-4 w-4 rounded-full border border-gray-300 
+                           text-primary-600 focus:ring-2 focus:ring-offset-2 
+                           focus:ring-primary-500"
+                        />                           
                         <Label htmlFor={card.value}>Default</Label>
                     </div>
                 </div>
@@ -99,8 +151,9 @@ export default function Addresses() {
                     <AlertDialog>
                         <AlertDialogTrigger asChild>
                             <Button
-                                disabled={card.id === "card-1"}
-                                variant={card.id === "card-1" ? "secondary" : "link"}
+                                // 最初のカードは無効化
+                                disabled={index === 0}
+                                variant={index === 0 ? "secondary" : "link"}
                                 className="disabled:shadow-none disabled:bg-transparent disabled:text-gray-500"
                             >
                                 Remove
@@ -210,8 +263,13 @@ export default function Addresses() {
                         {/* 新しいコンポーネントの条件付きレンダリング */}
                         {showNewAddress && <AddAdress />}
                     </div>
-                    <RadioGroup defaultValue="option-one" value={selectedOption}
-                        onValueChange={(value: string) => setSelectedOption(value)}
+                    <RadioGroup value={selectedCardId}
+                        onValueChange={(value: string) => {
+                            const card = cards.find((card) => card.id === value);
+                            if (card) {
+                                handleRadioChange(card);
+                            }
+                        }}
                     >
                         {addressList}
                     </RadioGroup>

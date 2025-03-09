@@ -33,12 +33,12 @@ export default function AddAdress() {
                     </CardHeader>
                     <CardContent>
                         <div className="flex items-center">
-                            <Phone height={17} width={17} /> +1(323) 561-8907
+                            <Phone height={17} width={17} /> +1(653) 753-9357
                         </div>
                         <div className="flex items-top">
                             <MapPin height={23} width={23} />
-                            1117 W Beardsley Rd #2070,
-                            Phoenix, AZ 85027, United States
+                            1117 W Beardsley Rd #6645,
+                            Mesa, AZ 85034, United States
                         </div>
                     </CardContent>
                     <CardFooter>
