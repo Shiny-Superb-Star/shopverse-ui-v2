@@ -32,13 +32,15 @@ This app has flexible system modules that enable sellers to enroll on our platfo
   - [ ] Users can manage their profile, including:
   	- [x] Editing username
   	- [x] Adding/updating personal and business information
+   	- [x] Adding/deleting personal addresses
+    	- [x] Setting an address as default
   	- [ ]  Uploading a profile image
   - [ ]  Users can log out
 
 - Navigation & Layout
   - [ ] Global Navigation Bar: Implement navigation bars for seamless access to key pages, including:
   	- [x] Header
-  	- [ ] Footer
+  	- [x] Footer
   - [ ] Sidebar for Seller Dashboard: Develop a collapsible sidebar with menu options for store management
   - [ ] Responsive Design: Ensure UI is fully responsive across desktop, tablet, and mobile views
 
