@@ -112,7 +112,7 @@ export default function CardList() {
             <AlertDialogTrigger asChild>
               <Button
                 // 最初のカードは無効化
-                disabled={cards[0].id === card.id} // 先頭のカードは削除不可
+                disabled={cards[0].id === card.id}
                 variant={cards[0].id === card.id ? "secondary" : "link"}
                 className="disabled:shadow-none disabled:bg-transparent disabled:text-gray-500"
               >
